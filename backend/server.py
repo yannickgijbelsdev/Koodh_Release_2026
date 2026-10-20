@@ -9,6 +9,10 @@ from pydantic import BaseModel, Field, ConfigDict
 from typing import List
 import uuid
 from datetime import datetime, timezone
+import time
+
+import httpx
+from fastapi.responses import JSONResponse
 
 
 ROOT_DIR = Path(__file__).parent
@@ -65,6 +69,47 @@ async def get_status_checks():
             check['timestamp'] = datetime.fromisoformat(check['timestamp'])
     
     return status_checks
+
+NEWS_API_BASE = "https://clr.koodh.com/api/news"
+NEWS_CACHE_TTL = 60
+_news_cache = {}
+
+
+async def _fetch_news(path):
+    now = time.time()
+    cached = _news_cache.get(path)
+    if cached and now - cached[0] < NEWS_CACHE_TTL:
+        return cached[1]
+    async with httpx.AsyncClient(timeout=15) as http:
+        resp = await http.get(f"{NEWS_API_BASE}/{path}")
+        resp.raise_for_status()
+        data = resp.json()
+    _news_cache[path] = (now, data)
+    return data
+
+
+@api_router.get("/news")
+async def get_news():
+    try:
+        return await _fetch_news("koodh/koodh")
+    except Exception:
+        logger.exception("news list fetch failed")
+        return JSONResponse({"error": "News unavailable"}, status_code=502)
+
+
+@api_router.get("/news/articles/{article_id}")
+async def get_news_article(article_id: str):
+    try:
+        return await _fetch_news(f"articles/{article_id}")
+    except httpx.HTTPStatusError as e:
+        if e.response.status_code == 404:
+            return JSONResponse({"error": "Article not found"}, status_code=404)
+        logger.exception("news article fetch failed")
+        return JSONResponse({"error": "News unavailable"}, status_code=502)
+    except Exception:
+        logger.exception("news article fetch failed")
+        return JSONResponse({"error": "News unavailable"}, status_code=502)
+
 
 # Include the router in the main app
 app.include_router(api_router)

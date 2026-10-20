@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>News · Koodh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{color-scheme:dark;--bg:#070B24;--navy-2:#111C52;--k3:#7C95DB;--ink:#EEF2FF;--muted:rgba(220,229,252,.66);--dim:rgba(220,229,252,.42);--card:rgba(255,255,255,.045);--hair:rgba(255,255,255,.08);--f-display:"Outfit","Plus Jakarta Sans",system-ui,sans-serif;--f-ui:"Plus Jakarta Sans","Outfit",system-ui,sans-serif;--f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(90% 60% at 50% 0%,#141F52 0%,var(--bg) 60%) fixed,var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit}
+img{display:block;max-width:100%}
+.wrap{width:100%;max-width:1240px;margin:0 auto;padding-inline:clamp(20px,4vw,48px)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:26px}
+.brand{display:inline-flex;align-items:center;gap:3px;text-decoration:none;font-family:var(--f-display);font-weight:600;font-size:27px;letter-spacing:-.03em;color:#fff}
+.brand svg{width:15px;height:auto}
+.brand svg polygon{fill:#7C95DB}
+.back{display:inline-flex;align-items:center;gap:10px;height:42px;padding:0 18px;border-radius:999px;background:rgba(255,255,255,.08);color:#fff;text-decoration:none;font-size:14px;font-weight:600;transition:background .2s,transform .25s}
+.back:hover{background:rgba(255,255,255,.14);transform:translateY(-1px)}
+.back svg{width:12px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#8FA6E8}
+.eyebrow svg{width:9px;height:auto}
+.eyebrow svg polygon{fill:currentColor}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(38px,5.2vw,72px);line-height:1;letter-spacing:-.045em;margin:16px 0 0;text-wrap:balance}
+h1 em{font-style:normal;background:linear-gradient(100deg,#7C95DB,#C9D6FA);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);font-size:17px;max-width:56ch;margin:18px 0 0}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(36px,5vw,56px)}
+@media(max-width:1000px){.news-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.news-grid{grid-template-columns:1fr}}
+.news-card{display:flex;flex-direction:column;gap:12px;padding:14px;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--hair);text-decoration:none;color:var(--ink);transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s}
+.news-card:hover{transform:translateY(-4px);box-shadow:inset 0 0 0 1px rgba(185,201,246,.28),0 26px 50px -24px rgba(0,0,0,.7)}
+.news-card .nc-img{display:block;border-radius:14px;overflow:hidden;aspect-ratio:16/10;background:var(--navy-2)}
+.news-card .nc-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.news-card:hover .nc-img img{transform:scale(1.04)}
+.news-card .nc-meta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.news-card .nc-title{font-family:var(--f-display);font-size:20px;line-height:1.25;letter-spacing:-.01em}
+.news-card .nc-cta{margin-top:auto;padding-top:4px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--k3)}
+.news-card .nc-cta svg{width:12px}
+.news-empty{grid-column:1/-1;color:var(--dim);font-size:15px}
+.foot{margin-top:auto;padding:70px 0 40px;color:var(--dim);font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="brand" href="/" aria-label="Koodh, back to homepage" data-testid="brand-home-link"><svg viewBox="66 26 42 51" aria-hidden="true"><polygon points="91.95,30.476 98.589,30.476 77.733,47.939 102.696,72.502 96.441,72.502 71.467,47.939"/></svg>koodh</a>
+  <a class="back" href="/" data-testid="back-home-link"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7H2M6 3L2 7l4 4"/></svg> Back to koodh.com</a>
+</header>
+<main class="wrap">
+  <span class="eyebrow"><svg viewBox="66 26 42 51" aria-hidden="true"><polygon points="91.95,30.476 98.589,30.476 77.733,47.939 102.696,72.502 96.441,72.502 71.467,47.939"/></svg> News</span>
+  <h1>Latest <em>news.</em></h1>
+  <p class="lead">Projects, launches and updates from the studio, published through Clara.</p>
+  <div class="news-grid" id="news-grid" data-testid="news-grid"><p class="news-empty">Loading news&hellip;</p></div>
+</main>
+<footer class="foot">&copy; Koodh &middot; The right team for your IT solutions</footer>
+<script>
+(function(){
+  var grid=document.getElementById('news-grid');
+  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  fetch('/api/news').then(function(r){if(!r.ok)throw new Error();return r.json()}).then(function(d){
+    var items=(d&&d.items)||[];
+    if(!items.length){grid.innerHTML='<p class="news-empty">No news yet.</p>';return}
+    grid.innerHTML=items.map(function(it){
+      var dt='';
+      try{dt=new Date(it.published_at).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}catch(e){}
+      var img=it.image_url?'<span class="nc-img"><img src="'+esc(it.image_url)+'" alt="" loading="lazy"></span>':'';
+      return '<a class="news-card" data-testid="news-card" href="/nieuws/artikel/?id='+encodeURIComponent(it.id)+'">'+img+'<span class="nc-meta">'+esc(dt)+'</span><span class="nc-title">'+esc(it.title)+'</span><span class="nc-cta">Read <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg></span></a>'
+    }).join('')
+  }).catch(function(){grid.innerHTML='<p class="news-empty">News could not be loaded right now.</p>'})
+})();
+</script>
+</body>
+</html>

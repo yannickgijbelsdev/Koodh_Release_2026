@@ -393,11 +393,28 @@ section{padding-block:clamp(88px,11vw,150px)}
 .tools span:first-child .tip{left:0;transform:translate(0,6px) scale(.96);transform-origin:0 100%}
 .tools span:first-child:hover .tip,.tools span:first-child:focus-visible .tip{transform:none}
 .person{overflow:visible}.person .pic{overflow:hidden}
+
+/* ---------- news ---------- */
+.news-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:1080px){.news-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.news-grid{grid-template-columns:1fr}}
+.news-card{display:flex;flex-direction:column;gap:12px;padding:14px;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--hair);text-decoration:none;color:var(--ink);transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s}
+.news-card:hover{transform:translateY(-4px);box-shadow:inset 0 0 0 1px rgba(185,201,246,.28),0 26px 50px -24px rgba(0,0,0,.7)}
+.news-card .nc-img{display:block;border-radius:14px;overflow:hidden;aspect-ratio:16/10;background:var(--navy-2)}
+.news-card .nc-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.news-card:hover .nc-img img{transform:scale(1.04)}
+.news-card .nc-meta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.news-card .nc-title{font-family:var(--f-display);font-size:19px;line-height:1.25;letter-spacing:-.01em}
+.news-card .nc-cta{margin-top:auto;padding-top:4px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--k3)}
+.news-card .nc-cta svg{width:12px}
+.news-empty{color:var(--dim);font-size:14.5px}
+.news-all{color:var(--k3);font-weight:600;text-decoration:none;white-space:nowrap}
+.news-all:hover{text-decoration:underline}
 </style>
 
 <a class="mark" id="mark" href="#top" aria-label="koodh, back to top"><span class="clip"><span class="koodh-logo" id="navlogo"></span></span></a>
 <nav class="dock" id="dock" aria-label="Main">
-  <a class="hide-m" href="#services">Services</a><a class="hide-m" href="#clara">Clara</a><a class="hide-m" href="#team">Team</a><a class="hide-m" href="#about">About</a>
+  <a class="hide-m" href="#services">Services</a><a class="hide-m" href="#clara">Clara</a><a class="hide-m" href="#news">News</a><a class="hide-m" href="#team">Team</a><a class="hide-m" href="#about">About</a>
   <span class="sep"></span>
   <a class="cta" href="#contact">Let’s talk <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
 </nav>
@@ -550,6 +567,14 @@ section{padding-block:clamp(88px,11vw,150px)}
         <div class="r"><a class="visit" href="https://clr.koodh.com">Visit <i>↗</i></a></div>
       </article>
     </div>
+  </section>
+
+  <section id="news" style="padding-top:0">
+    <div class="wrap head">
+      <div><span class="eyebrow"><svg viewBox="66 26 42 51" aria-hidden="true"><polygon points="91.95,30.476 98.589,30.476 77.733,47.939 102.696,72.502 96.441,72.502 71.467,47.939"/></svg> News</span><h2>Latest <em>news.</em></h2></div>
+      <p class="lead">Projects, launches and updates from the studio, published through Clara. <a class="news-all" href="/nieuws/" data-testid="news-all-link">All news &rarr;</a></p>
+    </div>
+    <div class="wrap"><div class="news-grid" id="news-grid" data-testid="news-grid"><p class="news-empty">Loading news&hellip;</p></div></div>
   </section>
 
   <section id="team" style="padding-top:clamp(48px,6vw,80px)">
@@ -778,6 +803,23 @@ vlan 10 name <em>"Staff"</em>
     t1.boost=p*520;ticking=false;
   }
   addEventListener("scroll",()=>{if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true});upd();
+})();
+</script>
+
+<script>
+(function(){
+  var grid=document.getElementById('news-grid');if(!grid)return;
+  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  fetch('/api/news').then(function(r){if(!r.ok)throw new Error();return r.json()}).then(function(d){
+    var items=(d&&d.items)||[];
+    if(!items.length){grid.innerHTML='<p class="news-empty">No news yet.</p>';return}
+    grid.innerHTML=items.map(function(it){
+      var dt='';
+      try{dt=new Date(it.published_at).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}catch(e){}
+      var img=it.image_url?'<span class="nc-img"><img src="'+esc(it.image_url)+'" alt="" loading="lazy"></span>':'';
+      return '<a class="news-card" data-testid="news-card" href="/nieuws/artikel/?id='+encodeURIComponent(it.id)+'">'+img+'<span class="nc-meta">'+esc(dt)+'</span><span class="nc-title">'+esc(it.title)+'</span><span class="nc-cta">Read <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg></span></a>'
+    }).join('')
+  }).catch(function(){grid.innerHTML='<p class="news-empty">News could not be loaded right now.</p>'})
 })();
 </script>
 
