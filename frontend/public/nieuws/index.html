@@ -28,15 +28,18 @@ h1 em{font-style:normal;background:linear-gradient(100deg,#7C95DB,#C9D6FA);-webk
 .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(36px,5vw,56px)}
 @media(max-width:1000px){.news-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.news-grid{grid-template-columns:1fr}}
-.news-card{display:flex;flex-direction:column;gap:12px;padding:14px;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--hair);text-decoration:none;color:var(--ink);transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s}
+.news-card{position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:10px;padding:22px;border-radius:22px;overflow:hidden;aspect-ratio:3/4;min-height:340px;background:linear-gradient(160deg,var(--navy-2),#0B1238);box-shadow:inset 0 0 0 1px var(--hair);text-decoration:none;color:#fff;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s}
 .news-card:hover{transform:translateY(-4px);box-shadow:inset 0 0 0 1px rgba(185,201,246,.28),0 26px 50px -24px rgba(0,0,0,.7)}
-.news-card .nc-img{display:block;border-radius:14px;overflow:hidden;aspect-ratio:16/10;background:var(--navy-2)}
-.news-card .nc-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.22,1,.36,1)}
-.news-card:hover .nc-img img{transform:scale(1.04)}
-.news-card .nc-meta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-.news-card .nc-title{font-family:var(--f-display);font-size:20px;line-height:1.25;letter-spacing:-.01em}
-.news-card .nc-cta{margin-top:auto;padding-top:4px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--k3)}
-.news-card .nc-cta svg{width:12px}
+.news-card .nc-bg{position:absolute;inset:0;z-index:0}
+.news-card .nc-bg img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.news-card:hover .nc-bg img{transform:scale(1.05)}
+.news-card::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(7,11,36,.12) 25%,rgba(7,11,36,.88) 100%);pointer-events:none}
+.news-card .nc-meta,.news-card .nc-title,.news-card .nc-btn{position:relative;z-index:2}
+.news-card .nc-meta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,242,255,.75)}
+.news-card .nc-title{font-family:var(--f-display);font-size:22px;line-height:1.2;letter-spacing:-.015em;color:#fff;text-wrap:balance}
+.news-card .nc-btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 5px 0 16px;border-radius:999px;background:#fff;color:#0B1238;font-weight:600;font-size:13px;margin-top:6px}
+.news-card .nc-btn .nc-go{width:28px;height:28px;border-radius:50%;background:var(--k2, #3E5BB8);color:#fff;display:grid;place-items:center}
+.news-card .nc-btn svg{width:11px}
 .news-empty{grid-column:1/-1;color:var(--dim);font-size:15px}
 .foot{margin-top:auto;padding:70px 0 40px;color:var(--dim);font-size:13px;text-align:center}
 </style>
@@ -63,8 +66,8 @@ h1 em{font-style:normal;background:linear-gradient(100deg,#7C95DB,#C9D6FA);-webk
     grid.innerHTML=items.map(function(it){
       var dt='';
       try{dt=new Date(it.published_at).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}catch(e){}
-      var img=it.image_url?'<span class="nc-img"><img src="'+esc(it.image_url)+'" alt="" loading="lazy"></span>':'';
-      return '<a class="news-card" data-testid="news-card" href="/nieuws/artikel/?id='+encodeURIComponent(it.id)+'">'+img+'<span class="nc-meta">'+esc(dt)+'</span><span class="nc-title">'+esc(it.title)+'</span><span class="nc-cta">Read <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg></span></a>'
+      var img=it.image_url?'<span class="nc-bg"><img src="'+esc(it.image_url)+'" alt="" loading="lazy"></span>':'';
+      return '<a class="news-card" data-testid="news-card" href="/nieuws/artikel/?id='+encodeURIComponent(it.id)+'">'+img+'<span class="nc-meta">'+esc(dt)+'</span><span class="nc-title">'+esc(it.title)+'</span><span class="nc-btn">Read more <span class="nc-go"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg></span></span></a>'
     }).join('')
   }).catch(function(){grid.innerHTML='<p class="news-empty">News could not be loaded right now.</p>'})
 })();

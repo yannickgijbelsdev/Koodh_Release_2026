@@ -25,6 +25,7 @@ Dark navy one-page marketing site for Koodh (Chiel van Gansewinkel & Yannick Gij
 - 2026-10-20: Removed all Netherlands/Belgium (NL · BE) references on user request; stats grid rebalanced to 3 items.
 - 2026-10-20: News feature via Clara API. Backend proxy `GET /api/news` and `GET /api/news/articles/{id}` (httpx, 60s cache, 404 passthrough) → `https://clr.koodh.com/api/news/koodh/koodh` + `/articles/{id}`. Home has a "News" section: horizontally scrollable banner row (3 cards visible + peek, snap scroll) with image/date/title, dock link, "All news" link. Separate pages: `/nieuws/` (overview grid) and `/nieuws/artikel/?id=<uuid>` (article detail rendering CMS body HTML, dark navy styled, real Koodh SVG logo in header). httpx added to requirements.txt.
 - 2026-10-20: Clara "Visit ↗" buttons replaced with "Request a demo" buttons (mailto:info@koodh.com with per-product subject: Clara / Clara Frames / Clara Campaigns).
+- 2026-10-20: News cards restyled as Clara-style banners: photo as card background with gradient overlay, date + title on top, white "Read more" pill button. Applied on home scroller and /nieuws/ overview.
 
 ## User personas
 - Business owners in NL/BE looking for websites, Microsoft 365, networks, AI help.
