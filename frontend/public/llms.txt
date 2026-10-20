@@ -1,0 +1,29 @@
+# Koodh
+
+Koodh is a two-person IT team — Chiel van Gansewinkel and Yannick Gijbels. They design and build websites and web apps, set up and manage Microsoft 365 cloud workplaces, design Xink e-mail signatures, install and monitor Wi-Fi and office networks, and provide ongoing IT management and on-site support.
+
+## What Koodh does
+
+- Website development: websites and web apps, designed and built from scratch, with hosting, domains, SSL, updates and backups
+- Microsoft 365: mail and file migrations, Teams, SharePoint and OneDrive, users, licences and devices
+- Xink e-mail signatures: one professional house-style signature rolled out to every mailbox
+- Wi-Fi & networks: site visits, Ubiquiti UniFi and TP-Link Omada, separate staff and guest networks, monitoring
+- IT management: accounts, licences, domains, DNS and hosting in one overview
+- On-site support: remote help first, visits when needed, PC and laptop repair, printers
+
+## Own platforms
+
+- Clara: news, radio schedule and ZeroTier network monitoring from one dashboard (https://clr.koodh.com)
+- Clara Frames: livestream graphics such as lower thirds, placards and a news ticker
+- Clara Campaigns: newsletters and marketing mails in one place
+
+## Pages
+
+- / — homepage with services, the Clara platforms, the team and contact details
+- /nieuws/ — news and project updates
+- /nieuws/<slug> — individual news articles
+
+## Contact
+
+- General enquiries: info@koodh.com
+- Payments: payments@koodh.com
