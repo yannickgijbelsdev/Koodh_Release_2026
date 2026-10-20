@@ -78,10 +78,7 @@ figure img{width:100%;border-radius:20px;box-shadow:0 0 0 1px var(--hair)}
   var id=new URLSearchParams(location.search).get('id');
   function fail(msg){state.textContent=msg;state.innerHTML+=' <a href="/nieuws/">Back to all news</a>.';}
   if(!id){location.replace('/nieuws/');return}
-  fetch('/api/news/articles/'+encodeURIComponent(id)).then(function(r){
-    if(!r.ok)throw new Error(r.status===404?'nf':'err');
-    return r.json()
-  }).then(function(d){
+  function render(d){
     document.title=d.title+' · Koodh';
     var meta=document.getElementById('a-meta');
     var cat=d.category&&d.category.name?d.category.name:'';
@@ -94,7 +91,13 @@ figure img{width:100%;border-radius:20px;box-shadow:0 0 0 1px var(--hair)}
     }
     document.getElementById('a-body').innerHTML=d.body||'';
     state.hidden=true;content.hidden=false;
-  }).catch(function(e){fail(e&&e.message==='nf'?'This article could not be found.':'This article could not be loaded right now.')})
+  }
+  fetch('/api/news').then(function(r){return r.ok?r.json():{items:[]}}).then(function(l){
+    var items=(l&&l.items)||[],it=null;
+    for(var i=0;i<items.length;i++){if(items[i].id===id){it=items[i];break}}
+    if(it){location.replace('/nieuws/'+it.slug);return null}
+    return fetch('/api/news/articles/'+encodeURIComponent(id)).then(function(r){if(!r.ok)throw new Error(r.status===404?'nf':'err');return r.json()});
+  }).then(function(d){if(d)render(d)}).catch(function(e){fail(e&&e.message==='nf'?'This article could not be found.':'This article could not be loaded right now.')})
 })();
 </script>
 </body>

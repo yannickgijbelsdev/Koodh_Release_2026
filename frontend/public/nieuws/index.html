@@ -76,7 +76,7 @@
     grid.innerHTML=items.map(function(it,idx){
       var img=it.image_url?'<img src="'+esc(it.image_url)+'" alt="" loading="lazy">':'';
       var ex=it.excerpt?'<div><p>'+esc(it.excerpt)+'</p></div>':'';
-      return '<article class="sc news '+V[idx%3]+'" style="--i:'+idx+'" data-testid="news-card"><div class="l"><div><h3>'+esc(it.title)+'</h3></div>'+ex+'</div><div class="circle">'+img+'</div><div class="r"><a class="visit" data-testid="news-read-btn" href="/nieuws/artikel/?id='+encodeURIComponent(it.id)+'">Read more <i>&rarr;</i></a></div></article>'
+      return '<article class="sc news '+V[idx%3]+'" style="--i:'+idx+'" data-testid="news-card"><div class="l"><div><h3>'+esc(it.title)+'</h3></div>'+ex+'</div><div class="circle">'+img+'</div><div class="r"><a class="visit" data-testid="news-read-btn" href="/nieuws/'+encodeURIComponent(it.slug)+'">Read more <i>&rarr;</i></a></div></article>'
     }).join('');
     if(window.koodhMagnetics)window.koodhMagnetics();
   }).catch(function(){grid.innerHTML='<p class="news-empty">News could not be loaded right now.</p>'})

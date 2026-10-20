@@ -1,4 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script><script src="https://assets.emergent.sh/scripts/emergent-main.js"></script></head><body>
+<script>(function(){var p=location.pathname;if(/^\/nieuws\/[^\/]+/.test(p)&&p.indexOf("/nieuws/artikel")!==0)document.documentElement.classList.add("av")})();</script>
 <title>Koodh</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -397,6 +398,30 @@ section{padding-block:clamp(88px,11vw,150px)}
 .tools span:first-child:hover .tip,.tools span:first-child:focus-visible .tip{transform:none}
 .person{overflow:visible}.person .pic{overflow:hidden}
 
+/* ---------- article view ---------- */
+html.av .hero-track,html.av #site-main{display:none}
+#article-view{padding-top:clamp(110px,17vh,180px)}
+#article-view .art{width:100%;max-width:820px;margin:0 auto}
+#article-view .meta{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#8FA6E8;margin:0 0 14px}
+#article-view h1{font-size:clamp(32px,4.6vw,58px);line-height:1.04;letter-spacing:-.04em}
+#article-view figure{margin:clamp(26px,4vw,44px) 0}
+#article-view figure img{width:100%;border-radius:20px;box-shadow:0 0 0 1px var(--hair)}
+#article-view .body{color:var(--muted);font-size:17px}
+#article-view .body p{margin:0 0 1.2em}
+#article-view .body a{color:var(--k4);text-decoration:underline;text-underline-offset:3px}
+#article-view .body img{border-radius:16px;margin:1.4em auto;box-shadow:0 0 0 1px var(--hair)}
+#article-view .body h2,#article-view .body h3,#article-view .body h4{font-family:var(--f-display);color:var(--ink);font-weight:500;letter-spacing:-.02em;line-height:1.15;margin:1.6em 0 .6em;text-wrap:balance}
+#article-view .body h2{font-size:30px}
+#article-view .body h3{font-size:23px}
+#article-view .body h4{font-size:19px}
+#article-view .body ul,#article-view .body ol{margin:0 0 1.2em;padding-left:1.3em}
+#article-view .body li{margin:.35em 0}
+#article-view .body blockquote{margin:1.4em 0;padding:4px 0 4px 20px;border-left:3px solid var(--k3);color:var(--ink);font-size:19px}
+#article-view .body pre{background:var(--navy-2);border-radius:14px;padding:16px 18px;overflow:auto;font-family:var(--f-mono);font-size:13.5px}
+#article-view .body iframe,#article-view .body video{max-width:100%;border-radius:16px}
+#article-view .body .clara-image-credit{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;color:var(--dim);margin:-.7em 0 1.4em}
+#article-view .state{color:var(--dim);font-size:15px;padding:60px 0;text-align:center}
+#article-view .state a{color:var(--k3)}
 /* ---------- news ---------- */
 .sc.news .circle{overflow:hidden}
 .sc.news .circle img{width:100%;height:100%;object-fit:cover}
@@ -436,7 +461,7 @@ section{padding-block:clamp(88px,11vw,150px)}
 </header>
 </div>
 
-<main>
+<main id="site-main">
   <section class="trust" aria-labelledby="trust-h">
     <div class="wrap">
       <div class="trust-in">
@@ -605,6 +630,18 @@ section{padding-block:clamp(88px,11vw,150px)}
       </div>
     </div>
   </section>
+</main>
+
+<main class="wrap" id="article-view" hidden>
+  <article class="art" data-testid="article">
+    <p class="state" id="av-state" data-testid="article-state">Loading article&hellip;</p>
+    <div id="av-content" hidden>
+      <p class="meta" id="av-meta" data-testid="article-meta"></p>
+      <h1 id="av-title" data-testid="article-title"></h1>
+      <figure id="av-fig" hidden><img id="av-img" alt="" data-testid="article-image"></figure>
+      <div class="body" id="av-body" data-testid="article-body"></div>
+    </div>
+  </article>
 </main>
 
 <footer class="foot" id="contact">
@@ -811,10 +848,41 @@ vlan 10 name <em>"Staff"</em>
     grid.innerHTML=items.map(function(it,idx){
       var img=it.image_url?'<img src="'+esc(it.image_url)+'" alt="" loading="lazy">':'';
       var ex=it.excerpt?'<div><p>'+esc(it.excerpt)+'</p></div>':'';
-      return '<article class="sc news '+V[idx%3]+'" style="--i:'+idx+'" data-testid="news-card"><div class="l"><div><h3>'+esc(it.title)+'</h3></div>'+ex+'</div><div class="circle">'+img+'</div><div class="r"><a class="visit" data-testid="news-read-btn" href="/nieuws/artikel/?id='+encodeURIComponent(it.id)+'">Read more <i>&rarr;</i></a></div></article>'
+      return '<article class="sc news '+V[idx%3]+'" style="--i:'+idx+'" data-testid="news-card"><div class="l"><div><h3>'+esc(it.title)+'</h3></div>'+ex+'</div><div class="circle">'+img+'</div><div class="r"><a class="visit" data-testid="news-read-btn" href="/nieuws/'+encodeURIComponent(it.slug)+'">Read more <i>&rarr;</i></a></div></article>'
     }).join('');
     if(window.koodhMagnetics)window.koodhMagnetics();
   }).catch(function(){grid.innerHTML='<p class="news-empty">News could not be loaded right now.</p>'})
+})();
+</script>
+
+<script>
+(function(){
+  if(!document.documentElement.classList.contains('av'))return;
+  var slug=decodeURIComponent(location.pathname.replace(/^\/nieuws\//,'').replace(/\/+$/,''));
+  document.querySelectorAll('#dock a[href^="#"]').forEach(function(a){var h=a.getAttribute('href');if(h!=='#contact')a.setAttribute('href','/'+h)});
+  var mark=document.getElementById('mark');if(mark)mark.setAttribute('href','/');
+  var view=document.getElementById('article-view'),state=document.getElementById('av-state'),content=document.getElementById('av-content');
+  view.hidden=false;
+  function fail(msg){state.hidden=false;state.textContent=msg;state.innerHTML+=' <a href="/nieuws/">Back to all news</a>.';}
+  fetch('/api/news').then(function(r){if(!r.ok)throw new Error();return r.json()}).then(function(d){
+    var items=(d&&d.items)||[],it=null;
+    for(var i=0;i<items.length;i++){if(items[i].slug===slug){it=items[i];break}}
+    if(!it)throw new Error('nf');
+    return fetch('/api/news/articles/'+encodeURIComponent(it.id)).then(function(r){if(!r.ok)throw new Error();return r.json()});
+  }).then(function(d){
+    document.title=d.title+' · Koodh';
+    var meta=document.getElementById('av-meta');
+    var cat=d.category&&d.category.name?d.category.name:'';
+    if(cat){meta.textContent=cat}else{meta.hidden=true}
+    document.getElementById('av-title').textContent=d.title||'';
+    if(d.image_url){
+      var fig=document.getElementById('av-fig');fig.hidden=false;
+      var img=document.getElementById('av-img');img.src=d.image_url;
+      img.onerror=function(){fig.hidden=true};
+    }
+    document.getElementById('av-body').innerHTML=d.body||'';
+    state.hidden=true;content.hidden=false;
+  }).catch(function(e){fail(e&&e.message==='nf'?'This article could not be found.':'This article could not be loaded right now.')});
 })();
 </script>
 
