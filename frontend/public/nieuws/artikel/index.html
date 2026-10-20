@@ -14,9 +14,8 @@ a{color:inherit}
 img{display:block;max-width:100%}
 .wrap{width:100%;max-width:1240px;margin:0 auto;padding-inline:clamp(20px,4vw,48px)}
 .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:26px}
-.brand{display:inline-flex;align-items:center;gap:3px;text-decoration:none;font-family:var(--f-display);font-weight:600;font-size:27px;letter-spacing:-.03em;color:#fff}
-.brand svg{width:15px;height:auto}
-.brand svg polygon{fill:#7C95DB}
+.brand{display:inline-flex;align-items:center;text-decoration:none;height:24px}
+.brand svg{display:block;height:100%;width:auto}
 .back{display:inline-flex;align-items:center;gap:10px;height:42px;padding:0 18px;border-radius:999px;background:rgba(255,255,255,.08);color:#fff;text-decoration:none;font-size:14px;font-weight:600;transition:background .2s,transform .25s}
 .back:hover{background:rgba(255,255,255,.14);transform:translateY(-1px)}
 .back svg{width:12px}
@@ -48,7 +47,7 @@ figcaption p{margin:0}
 </head>
 <body>
 <header class="wrap top">
-  <a class="brand" href="/" aria-label="Koodh, back to homepage" data-testid="brand-home-link"><svg viewBox="66 26 42 51" aria-hidden="true"><polygon points="91.95,30.476 98.589,30.476 77.733,47.939 102.696,72.502 96.441,72.502 71.467,47.939"/></svg>koodh</a>
+  <a class="brand" href="/" aria-label="Koodh, back to homepage" data-testid="brand-home-link"><svg viewBox="64 4 282 76" role="img" aria-label="koodh"><polygon points="91.95,30.476 98.589,30.476 77.733,47.939 71.467,47.939" fill="#fff"/><polygon points="71.467,47.939 77.733,47.939 102.696,72.502 96.441,72.502" fill="#fff"/><ellipse cx="141.254" cy="51.644" rx="20.821" ry="20.381" stroke="#fff" stroke-width="4.437" fill="none"/><ellipse cx="201.225" cy="51.644" rx="20.818" ry="20.385" stroke="#fff" stroke-width="4.43" fill="none"/><ellipse cx="259.309" cy="51.64" rx="19.846" ry="20.341" stroke="#fff" stroke-width="4.272" fill="none"/><rect x="277.236" y="11.745" width="4.257" height="60.772" fill="#fff"/><rect x="303.504" y="11.748" width="4.241" height="60.752" fill="#fff"/><path d="M305.624 43.916C312.235 26.254 339.171 26.927 336.88 47.037V72.5" stroke="#fff" stroke-width="4.291" fill="none"/></svg></a>
   <a class="back" href="/nieuws/" data-testid="all-news-link"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7H2M6 3L2 7l4 4"/></svg> All news</a>
 </header>
 <main class="wrap">
