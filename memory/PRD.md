@@ -29,6 +29,7 @@ Dark navy one-page marketing site for Koodh (Chiel van Gansewinkel & Yannick Gij
 - 2026-10-20: Team heading → "Meet our small team."; dates removed from news banners and article pages (article meta shows category only); subpages (/nieuws/, /nieuws/artikel/) now share the exact homepage chrome via /shared/chrome.css + /shared/chrome.js (floating dock menu, animated koodh logo mark, contact footer with 3D tunnel, linkbar, legal); dock links on subpages point to /#anchors.
 - 2026-10-20: Hero eyebrow "Websites & IT" removed; hero pills now use the real brand icons from the team tools (beak mark for Websites, Microsoft 365, Xink, Ubiquiti UniFi, OpenAI).
 - 2026-10-20: Pretty news URLs: articles live at /nieuws/<slug> (client-side article view inside index.html via SPA fallback; slug resolved to id through the list API). Old /nieuws/artikel/?id= URLs redirect to the slug. Unknown slug shows a not-found state.
+- 2026-10-20: ZeroTier icon (user-supplied, /assets/zerotier.png) added to Yannick's tools row with tooltip 'Private networks and security'.
 - 2026-10-20: Team bio paragraphs removed from person cards (photo, name, role and tool icons remain).
 - 2026-10-20: Team photos replaced with user-supplied cutout portraits (/assets/chiel.jpg, /assets/yannick.jpg); person cards use contain on light background; footer avatars updated too.
 
