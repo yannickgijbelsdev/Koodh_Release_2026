@@ -1,0 +1,32 @@
+# Koodh — Onepager
+
+## Original problem statement
+"Ik heb de html en md toegevoegd, bouw het exact zo" — user uploaded `Koodh.html` (complete self-contained onepager) and `Koodh.md` (text export of the same content). Requirement: reproduce the site exactly as delivered.
+
+## What the site is
+Dark navy one-page marketing site for Koodh (Chiel van Gansewinkel & Yannick Gijbels), IT services in NL & BE:
+- Sticky scroll-driven hero with 3D tunnel of floating panels, word-by-word text reveal
+- Floating pill navigation (Services / Clara / Team / About / Let's talk)
+- Trusted-by logos (Studio Wonderland, Radiogroep, Thomas More)
+- Services bento: Website development, Microsoft 365, Xink signatures, Wi-Fi & networks, AI integration, IT management, On-site support — each with its own animated mini-interface
+- Clara platforms section (Clara, Clara Frames, Clara Campaigns) linking to clr.koodh.com
+- Team section with photos and tool badges
+- About section with stats (15+ projects, 10+ years, 2 countries, 1M+ lines)
+- Contact footer (info@koodh.com, payments@koodh.com, KVK 42066318)
+
+## Architecture
+- The uploaded HTML is fully self-contained (inline CSS, inline JS, base64 images/fonts via Google Fonts CDN). It is served verbatim as `/app/frontend/public/index.html` through the existing CRA dev server (port 3000).
+- `/app/frontend/src/index.js` reduced to a no-op so the injected React bundle does not mount (no `#root` in the static page).
+- Platform scripts (emergent-main.js + DataCloneError guard) re-injected into `<head>`.
+- Backend (FastAPI, port 8001) untouched; the site needs no API or database.
+
+## Implemented
+- 2026-10-20: Exact 1:1 serve of Koodh.html; verified at 1366/768/375 px, all sections render, scroll animations work, no JS errors.
+
+## User personas
+- Business owners in NL/BE looking for websites, Microsoft 365, networks, AI help.
+
+## Backlog / next tasks
+- P1: Contact form backend (currently mailto links only)
+- P2: Dutch language version (site is English)
+- P2: SEO meta/OG tags for sharing
