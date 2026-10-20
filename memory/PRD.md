@@ -25,7 +25,9 @@ Dark navy one-page marketing site for Koodh (Chiel van Gansewinkel & Yannick Gij
 - 2026-10-20: Removed all Netherlands/Belgium (NL · BE) references on user request; stats grid rebalanced to 3 items.
 - 2026-10-20: News feature via Clara API. Backend proxy `GET /api/news` and `GET /api/news/articles/{id}` (httpx, 60s cache, 404 passthrough) → `https://clr.koodh.com/api/news/koodh/koodh` + `/articles/{id}`. Home has a "News" section: horizontally scrollable banner row (3 cards visible + peek, snap scroll) with image/date/title, dock link, "All news" link. Separate pages: `/nieuws/` (overview grid) and `/nieuws/artikel/?id=<uuid>` (article detail rendering CMS body HTML, dark navy styled, real Koodh SVG logo in header). httpx added to requirements.txt.
 - 2026-10-20: Clara "Visit ↗" buttons replaced with "Request a demo" buttons (mailto:info@koodh.com with per-product subject: Clara / Clara Frames / Clara Campaigns).
-- 2026-10-20: News cards restyled as Clara-style banners: photo as card background with gradient overlay, date + title on top, white "Read more" pill button. Applied on home scroller and /nieuws/ overview.
+- 2026-10-20: News cards restyled as long Clara-style banners (sticky stack, big title left, photo in white circle, "Read more" pill right, alternating gradients). Applied on home and /nieuws/ overview.
+- 2026-10-20: Team heading → "Meet our small team."; dates removed from news banners and article pages (article meta shows category only); subpages (/nieuws/, /nieuws/artikel/) now share the exact homepage chrome via /shared/chrome.css + /shared/chrome.js (floating dock menu, animated koodh logo mark, contact footer with 3D tunnel, linkbar, legal); dock links on subpages point to /#anchors.
+- 2026-10-20: Hero eyebrow "Websites & IT" removed; hero pills now use the real brand icons from the team tools (beak mark for Websites, Microsoft 365, Xink, Ubiquiti UniFi, OpenAI).
 
 ## User personas
 - Business owners in NL/BE looking for websites, Microsoft 365, networks, AI help.
